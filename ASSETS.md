@@ -37,7 +37,7 @@ The project owner approved the bundled local artwork for the June 3, 2026 public
 | `assets/cutscene/intro-title-backdrop.jpg` | Intro cutscene still | Project-local AI-generated still | Approved for this release |
 | `assets/cutscene/intro-narration.mp3` | Intro cutscene narration | Generated with the dev-only Kokoro TTS workflow from project-local copy | Approved for this release |
 | `public/favicon.svg` | Browser tab icon and web app manifest icon | Original vector created for this release pass | MIT with source code |
-| `docs/screenshots/hermes-godspeed-gameplay.png` | README gameplay screenshot | Deterministic Playwright capture of the current local game build | Approved for this release |
+| `docs/screenshots/hermes-godspeed-gameplay.png` | README hero screenshot | Deterministic Playwright capture of the current local game title screen | Approved for this release |
 
 ## Trailer Media
 

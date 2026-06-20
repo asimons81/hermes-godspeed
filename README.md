@@ -2,7 +2,7 @@
 
 Hermes: Godspeed is a Phaser and Vite endless runner about winged speed, divine appetite, and one more run.
 
-![Hermes sprinting through the current myth-tech roadway with the gameplay HUD, lobsters, hazards, and a divine powerup](docs/screenshots/hermes-godspeed-gameplay.png)
+![Hermes: Godspeed title screen showing Hermes on the myth-tech roadway with the run button and difficulty options](docs/screenshots/hermes-godspeed-gameplay.png)
 
 ## Features
 
