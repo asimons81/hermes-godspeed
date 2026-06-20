@@ -1,6 +1,5 @@
 node_modules/
 dist/
-trailer/
 *.log
 preview.err
 preview.log
@@ -14,3 +13,17 @@ playtest/*.webm
 playtest/*.png
 .env.local
 .env.*.local
+
+# Canonical trailer source lives in trailer/. Only generated inputs and outputs are ignored.
+trailer/node_modules/
+trailer/out/
+trailer/public/generated/
+trailer/media/
+trailer/renders/
+trailer/stills/
+trailer/audio/
+trailer/raw-captures/
+trailer/.obs-state/
+trailer/.chrome-profile/
+trailer/.remotion/
+trailer/.git/
