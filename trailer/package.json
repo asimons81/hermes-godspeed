@@ -1,0 +1,38 @@
+{
+  "name": "trailer",
+  "version": "1.0.0",
+  "description": "Canonical Hermes: Godspeed launch trailer source and render pipeline.",
+  "repository": {},
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@remotion/cli": "4.0.471",
+    "@remotion/media": "^4.0.471",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.471"
+  },
+  "devDependencies": {
+    "@remotion/eslint-config-flat": "4.0.471",
+    "@types/react": "19.2.7",
+    "@types/web": "0.0.166",
+    "eslint": "9.19.0",
+    "playwright": "^1.60.0",
+    "prettier": "3.8.1",
+    "typescript": "5.9.3"
+  },
+  "scripts": {
+    "dev": "remotion studio",
+    "build": "remotion bundle",
+    "sync-assets": "node scripts/sync-assets.mjs",
+    "capture": "node scripts/capture-browser-footage.mjs",
+    "score": "node scripts/generate-score.mjs",
+    "render": "remotion render HermesGodspeedTrailer out/hermes-godspeed-launch-trailer.mp4 --codec=h264 --audio-codec=aac --concurrency=4 --log=warn && node scripts/verify-render.mjs",
+    "render:fresh": "npm run sync-assets && npm run score && npm run capture && npm run lint && npm run render",
+    "upgrade": "remotion upgrade",
+    "lint": "eslint src && tsc"
+  },
+  "sideEffects": [
+    "*.css"
+  ]
+}

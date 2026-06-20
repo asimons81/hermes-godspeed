@@ -2,6 +2,8 @@
 
 Hermes: Godspeed is a Phaser and Vite endless runner about winged speed, divine appetite, and one more run.
 
+![Hermes sprinting through the current myth-tech roadway with the gameplay HUD, lobsters, hazards, and a divine powerup](docs/screenshots/hermes-godspeed-gameplay.png)
+
 ## Features
 
 - Lane-based running, jumping, and sliding.
@@ -68,7 +70,14 @@ Settings are stored separately under `hermes-godspeed.settings.v1` and include m
 
 ## Trailer
 
-The `trailer/` directory is a separate Remotion project used to render the launch video. It has its own dependencies, scripts, and git history, and is not part of the game build or the shipped static artifact in `dist/`. See `trailer/README.md` for its own instructions.
+The tracked `trailer/` directory is the canonical Remotion + Playwright source for the official launch video. It has its own dependencies, but shares the current game and artwork as its source of truth. Generated captures and the final MP4 remain ignored and are not part of `dist/`.
+
+```bash
+npm --prefix trailer ci
+npm run trailer:render
+```
+
+The verified local output is written to `trailer/out/hermes-godspeed-launch-trailer.mp4`. See `trailer/README.md` for preview, capture, and render details.
 
 ## License
 

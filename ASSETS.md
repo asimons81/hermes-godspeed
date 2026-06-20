@@ -37,6 +37,13 @@ The project owner approved the bundled local artwork for the June 3, 2026 public
 | `assets/cutscene/intro-title-backdrop.jpg` | Intro cutscene still | Project-local AI-generated still | Approved for this release |
 | `assets/cutscene/intro-narration.mp3` | Intro cutscene narration | Generated with the dev-only Kokoro TTS workflow from project-local copy | Approved for this release |
 | `public/favicon.svg` | Browser tab icon and web app manifest icon | Original vector created for this release pass | MIT with source code |
+| `docs/screenshots/hermes-godspeed-gameplay.png` | README gameplay screenshot | Deterministic Playwright capture of the current local game build | Approved for this release |
+
+## Trailer Media
+
+The canonical trailer source is tracked under `trailer/`, but its generated inputs and output are not. `trailer/scripts/sync-assets.mjs` copies approved repository artwork into the ignored `trailer/public/generated/` directory at render time, keeping the root `assets/` directory as the single source of truth.
+
+The trailer score is generated locally by `trailer/scripts/generate-score.mjs` from project-authored synthesis code. It contains no sampled or third-party music. Generated gameplay captures come from the current local game build through Playwright, and the final MP4 is written to the ignored `trailer/out/` directory.
 
 ## Build Notes
 
