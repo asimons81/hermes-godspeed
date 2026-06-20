@@ -1,0 +1,17 @@
+{
+  "name": "Hermes: Godspeed",
+  "short_name": "Godspeed",
+  "description": "A myth-tech arcade runner with lane dodging, lobster combos, daily dispatches, missions, and local progression.",
+  "start_url": "/",
+  "display": "fullscreen",
+  "background_color": "#101c4f",
+  "theme_color": "#101c4f",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

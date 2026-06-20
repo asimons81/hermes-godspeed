@@ -1,0 +1,43 @@
+{
+  "name": "hermes-godspeed",
+  "version": "0.1.0",
+  "description": "A Phaser endless runner about winged speed, divine appetite, and one more run.",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc && vite build",
+    "build:test": "tsc && vite build --mode test",
+    "preview": "vite preview --host 127.0.0.1",
+    "voice:intro": "node scripts/generate-intro-voice.mjs",
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "vitest run src",
+    "test:e2e": "playwright test",
+    "test:release-bundle": "npm run build && node scripts/assert-release-bundle.mjs",
+    "release:check": "npm run test:unit && npm run test:e2e && npm run test:release-bundle",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "phaser",
+    "vite",
+    "endless-runner",
+    "game",
+    "browser"
+  ],
+  "dependencies": {
+    "phaser": "^3.90.0"
+  },
+  "devDependencies": {
+    "@huggingface/transformers": "^3.5.1",
+    "@playwright/test": "^1.60.0",
+    "kokoro-js": "^1.2.1",
+    "playwright": "^1.60.0",
+    "typescript": "^5.6.3",
+    "vite": "^6.0.0",
+    "vitest": "^4.1.8"
+  }
+}

@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Hermes: Godspeed is a Phaser endless runner about winged speed, divine appetite, lobster combos, missions, and one more run."
+    />
+    <meta name="application-name" content="Hermes: Godspeed" />
+    <meta property="og:title" content="Hermes: Godspeed" />
+    <meta
+      property="og:description"
+      content="A myth-tech arcade runner with lane dodging, lobster combos, daily dispatches, missions, and local progression."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="theme-color" content="#101c4f" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <title>Hermes: Godspeed</title>
+  </head>
+  <body>
+    <main id="app" aria-label="Hermes: Godspeed endless runner">
+      <div id="game"></div>
+
+      <section class="intro-overlay" id="introOverlay" aria-label="Opening cutscene" aria-live="polite">
+        <p class="intro-caption" id="introCaption"></p>
+        <div class="intro-controls">
+          <button class="secondary-button intro-button" id="introSoundButton" type="button">SOUND</button>
+          <button class="secondary-button intro-button" id="introSkipButton" type="button">SKIP</button>
+        </div>
+      </section>
+
+      <section class="hud" id="hud" aria-live="polite">
+        <div class="hud-cluster">
+          <span class="hud-chip">
+            <span class="hud-label">Score</span>
+            <strong id="score">0</strong>
+          </span>
+          <span class="hud-chip best-chip">
+            <span class="hud-label">Best</span>
+            <strong id="bestScore">0</strong>
+          </span>
+          <span class="hud-chip lobster-chip">
+            <span class="hud-label">Lobsters</span>
+            <strong id="lobsters">0</strong>
+          </span>
+          <span class="hud-chip strike-chip">
+            <span class="hud-label">Hits</span>
+            <strong id="strikeCount">0/3</strong>
+          </span>
+        </div>
+        <div class="hud-cluster hud-center">
+          <span class="route-chip" id="routeChip">
+            <span class="hud-label" id="routeModeHud">Classic</span>
+            <strong id="routeSegmentHud">Olympus Circuit</strong>
+          </span>
+          <span class="power-chip" id="powerChip">Ready</span>
+          <span class="combo-chip" id="comboChip">x1</span>
+        </div>
+        <div class="hud-cluster">
+          <span class="hud-chip">
+            <span class="hud-label">Speed</span>
+            <strong id="speed">0</strong>
+          </span>
+          <button class="icon-button" id="pauseButton" type="button" aria-label="Pause">II</button>
+        </div>
+      </section>
+
+      <section class="panel is-visible" id="startPanel" aria-label="Start game">
+        <div class="panel-shell launch-shell">
+          <div class="launch-header">
+            <p class="eyebrow">Myth-tech chomp sprint</p>
+            <h1>Hermes: Godspeed</h1>
+            <p class="tagline">Winged speed. Divine appetite. One more run.</p>
+          </div>
+          <div class="profile-strip launch-stats" aria-label="Runner profile">
+            <span>
+              <span class="hud-label">High Score</span>
+              <strong id="startBestScore">0</strong>
+            </span>
+            <span>
+              <span class="hud-label">Laurels</span>
+              <strong id="startLaurels">0</strong>
+            </span>
+            <span>
+              <span class="hud-label">Seals</span>
+              <strong id="startCourierSeals">0</strong>
+            </span>
+            <span>
+              <span class="hud-label">Title</span>
+              <strong id="startTitle">Winged Runner</strong>
+            </span>
+            <span>
+              <span class="hud-label">Difficulty</span>
+              <strong id="startDifficulty">Normal</strong>
+            </span>
+          </div>
+          <div class="mode-strip" aria-label="Run mode">
+            <button class="mode-button is-active" id="modeClassicButton" type="button">Classic</button>
+            <button class="mode-button" id="modeDailyButton" type="button">Daily Dispatch</button>
+            <span id="dailyDispatchLabel">Daily route ready</span>
+          </div>
+          <div class="menu-actions launch-actions">
+            <button class="secondary-button action-button" id="helpButtonStart" type="button">HELP</button>
+            <button class="primary-button" id="startButton" type="button">RUN</button>
+            <button class="secondary-button action-button" id="settingsButtonStart" type="button">SETTINGS</button>
+          </div>
+          <div class="mission-preview" id="missionPreview" aria-live="polite">
+            <span class="hud-label">Next Mission</span>
+            <strong>Eat 40 lobsters</strong>
+            <span>0 / 40 - 3 laurels</span>
+            <span class="mission-meter"><span></span></span>
+          </div>
+          <div class="launch-drawers" aria-label="More launch options">
+            <details class="menu-drawer">
+              <summary>
+                <span>Mission Log</span>
+                <strong id="missionHeader">3 goals ready</strong>
+              </summary>
+              <div class="progression-panel" aria-label="Progression">
+                <div class="mission-list" id="startMissionList"></div>
+              </div>
+            </details>
+            <details class="menu-drawer">
+              <summary>
+                <span>Customize Hermes</span>
+                <strong>Trails and titles</strong>
+              </summary>
+              <div class="customize-panel" aria-label="Customize Hermes">
+                <label>
+                  <span class="hud-label">Trail</span>
+                  <select id="trailSelect"></select>
+                </label>
+                <label>
+                  <span class="hud-label">Title</span>
+                  <select id="titleSelect"></select>
+                </label>
+                <label>
+                  <span class="hud-label">HUD Accent</span>
+                  <select id="themeSelect"></select>
+                </label>
+                <button class="secondary-button compact-button" id="resetProfileButton" type="button">Reset Profile</button>
+              </div>
+            </details>
+            <details class="menu-drawer">
+              <summary>
+                <span>Recording</span>
+                <strong id="recordSummaryStart">Off</strong>
+              </summary>
+              <div class="record-controls">
+                <label class="record-toggle">
+                  <input id="recordToggleStart" type="checkbox" />
+                  <span>Record MP4</span>
+                </label>
+                <span class="record-status" id="recordStatusStart">Off</span>
+                <button class="secondary-button" id="saveRecordingStart" type="button" disabled>Save MP4</button>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="gameOverPanel" aria-label="Game over">
+        <div class="panel-shell result-shell">
+          <div class="result-header">
+            <p class="eyebrow">Run ended</p>
+            <h2>Godspeed Lost</h2>
+          </div>
+          <p class="record-badge" id="newRecordBadge" hidden>New high score</p>
+          <div class="results">
+            <span>
+              <span class="hud-label">Score</span>
+              <strong id="finalScore">0</strong>
+            </span>
+            <span>
+              <span class="hud-label">Eaten</span>
+              <strong id="finalLobsters">0</strong>
+            </span>
+            <span>
+              <span class="hud-label">Best</span>
+              <strong id="finalBestScore">0</strong>
+            </span>
+            <span>
+              <span class="hud-label">Difficulty</span>
+              <strong id="finalDifficulty">Normal</strong>
+            </span>
+          </div>
+          <div class="game-over-actions">
+            <button class="primary-button" id="retryButton" type="button">RETRY</button>
+            <button class="secondary-button action-button" id="menuButton" type="button">MENU</button>
+          </div>
+          <div class="run-stats" aria-label="Run stats">
+            <span>
+              <span class="hud-label">Time</span>
+              <strong id="finalTime">00:00</strong>
+            </span>
+            <span>
+              <span class="hud-label">Best combo</span>
+              <strong id="finalBestCombo">x1</strong>
+            </span>
+            <span>
+              <span class="hud-label">Top speed</span>
+              <strong id="finalTopSpeed">0</strong>
+            </span>
+            <span>
+              <span class="hud-label">Powerups</span>
+              <strong id="finalPowerups">0</strong>
+            </span>
+            <span>
+              <span class="hud-label">Smashed</span>
+              <strong id="finalSmashed">0</strong>
+            </span>
+          </div>
+          <div class="run-route-summary" aria-label="Route summary">
+            <span>
+              <span class="hud-label">Mode</span>
+              <strong id="finalRunMode">Classic</strong>
+            </span>
+            <span>
+              <span class="hud-label">Route</span>
+              <strong id="finalRoute">Olympus Circuit</strong>
+            </span>
+            <span>
+              <span class="hud-label">Seals</span>
+              <strong id="finalCourierSeals">0</strong>
+            </span>
+            <span>
+              <span class="hud-label">Daily Best</span>
+              <strong id="finalDailyBest">-</strong>
+            </span>
+          </div>
+          <div class="share-row">
+            <button class="secondary-button compact-button" id="copyShareButton" type="button">Copy Share</button>
+            <span id="shareStatus">Dispatch summary ready</span>
+          </div>
+          <div class="launch-drawers result-drawers">
+            <details class="menu-drawer" open>
+              <summary>
+                <span>Rewards</span>
+                <strong id="gameOverLaurels">0 laurels</strong>
+              </summary>
+              <div class="reward-panel" aria-label="Run rewards">
+                <div>
+                  <span class="hud-label">Laurels Earned</span>
+                  <strong id="earnedLaurels">0</strong>
+                </div>
+                <div>
+                  <span class="hud-label">Completed</span>
+                  <strong id="completedMissionCount">0 missions</strong>
+                </div>
+              </div>
+              <div class="progression-panel compact" aria-label="Mission progress">
+                <div class="panel-heading">
+                  <span class="hud-label">Next Missions</span>
+                </div>
+                <div class="mission-list" id="gameOverMissionList"></div>
+                <div class="completed-list" id="completedMissionList"></div>
+              </div>
+            </details>
+            <details class="menu-drawer">
+              <summary>
+                <span>Recording</span>
+                <strong id="recordSummaryGameOver">Off</strong>
+              </summary>
+              <div class="record-controls">
+                <label class="record-toggle">
+                  <input id="recordToggleGameOver" type="checkbox" />
+                  <span>Record MP4</span>
+                </label>
+                <span class="record-status" id="recordStatusGameOver">Off</span>
+                <button class="secondary-button" id="saveRecordingGameOver" type="button" disabled>Save MP4</button>
+              </div>
+            </details>
+            <div class="sub-actions">
+              <button class="secondary-button compact-button" id="helpButtonGameOver" type="button">HELP</button>
+              <button class="secondary-button compact-button" id="settingsButtonGameOver" type="button">SETTINGS</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="pause-panel" id="pausePanel" aria-label="Paused">
+        <div class="pause-shell">
+          <div class="result-header">
+            <p class="eyebrow">Paused</p>
+            <h2>Godspeed Held</h2>
+          </div>
+          <div class="pause-actions">
+            <button class="primary-button" id="resumeButton" type="button">RESUME</button>
+            <button class="secondary-button action-button" id="helpButtonPause" type="button">HELP</button>
+            <button class="secondary-button action-button" id="settingsButtonPause" type="button">SETTINGS</button>
+            <button class="secondary-button action-button" id="pauseMenuButton" type="button">MENU</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="modal" id="helpModal" aria-hidden="true" aria-label="How to play">
+        <div class="modal-shell" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+          <div class="modal-heading">
+            <div>
+              <p class="eyebrow">Guide</p>
+              <h2 id="helpTitle">How To Play</h2>
+            </div>
+            <button class="icon-button modal-close" type="button" data-close-modal aria-label="Close help">X</button>
+          </div>
+          <div class="help-sections">
+            <section class="help-section">
+              <h3>Controls</h3>
+              <div class="help-grid help-controls">
+                <span><strong>Move</strong><small>Left/Right or A/D</small></span>
+                <span><strong>Jump</strong><small>Up, W, or Space</small></span>
+                <span><strong>Slide</strong><small>Down or S</small></span>
+                <span><strong>Pause</strong><small>P or pause button</small></span>
+              </div>
+            </section>
+
+            <section class="help-section">
+              <h3>Hazards</h3>
+              <p class="help-rule help-rule-danger">Red-orange machinery causes strikes. Avoid it unless Smash Mode is active.</p>
+              <div class="help-card-grid help-hazards">
+                <article class="help-asset-card danger-card">
+                  <img src="./assets/obstacles/myth-tech-barricade.png" alt="Low myth-tech barricade" />
+                  <span><strong>Ground Barricade</strong><small>Jump over it</small></span>
+                </article>
+                <article class="help-asset-card danger-card">
+                  <img src="./assets/obstacles/myth-tech-zapbar.png" alt="Overhead myth-tech lightning bar" />
+                  <span><strong>Overhead Zap</strong><small>Slide under it</small></span>
+                </article>
+              </div>
+            </section>
+
+            <section class="help-section">
+              <h3>Collectibles</h3>
+              <p class="help-rule help-rule-safe">Gold and cyan rewards are always safe to collect.</p>
+              <div class="help-grid">
+                <span><strong>Lobsters</strong><small>Build score and combos</small></span>
+                <span><strong>Courier Seals</strong><small>Earn permanent progression</small></span>
+                <span><strong>Herald Gates</strong><small>Choose a route and boon</small></span>
+                <span><strong>Golden Lobsters</strong><small>Worth a larger reward</small></span>
+              </div>
+            </section>
+
+            <section class="help-section">
+              <h3>Divine Powerups</h3>
+              <div class="help-card-grid powerup-guide">
+                <article class="help-asset-card power-card"><img src="./assets/powerups/chomp-relic.png" alt="Divine Chomp relic" /><span><strong>Divine Chomp</strong><small>Smash obstacles safely</small></span></article>
+                <article class="help-asset-card power-card"><img src="./assets/powerups/sandals-relic.png" alt="Winged Sandals relic" /><span><strong>Winged Sandals</strong><small>Boost running speed</small></span></article>
+                <article class="help-asset-card power-card"><img src="./assets/powerups/goblet-relic.png" alt="Triple Score Goblet relic" /><span><strong>Golden Goblet</strong><small>Triple score rewards</small></span></article>
+                <article class="help-asset-card power-card"><img src="./assets/powerups/bolt-relic.png" alt="Zeus Bolt relic" /><span><strong>Zeus Bolt</strong><small>Clear the road ahead</small></span></article>
+                <article class="help-asset-card power-card"><img src="./assets/powerups/magnet-relic.png" alt="Lobster Magnet relic" /><span><strong>Lobster Magnet</strong><small>Pull in nearby lobsters</small></span></article>
+              </div>
+            </section>
+          </div>
+          <p class="modal-copy">Smash Mode comes from Divine Chomp or the Storm Shield boon. Winged Sandals increases speed, but does not protect Hermes from hazards.</p>
+          <button class="secondary-button compact-button modal-extra-action" id="replayIntroButton" type="button">Replay Intro</button>
+        </div>
+      </section>
+
+      <section class="modal" id="settingsModal" aria-hidden="true" aria-label="Settings">
+        <div class="modal-shell" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+          <div class="modal-heading">
+            <div>
+              <p class="eyebrow">Options</p>
+              <h2 id="settingsTitle">Settings</h2>
+            </div>
+            <button class="icon-button modal-close" type="button" data-close-modal aria-label="Close settings">X</button>
+          </div>
+          <div class="settings-list">
+            <label class="setting-toggle">
+              <span><strong>Music</strong><small>Background theme during runs</small></span>
+              <input id="musicToggle" type="checkbox" />
+            </label>
+            <label class="setting-toggle">
+              <span><strong>SFX</strong><small>Chomps, hits, powerups, and run cues</small></span>
+              <input id="sfxToggle" type="checkbox" />
+            </label>
+            <label class="setting-toggle">
+              <span><strong>Reduced Motion</strong><small>Less shake, flash, and trail motion</small></span>
+              <input id="reducedMotionToggle" type="checkbox" />
+            </label>
+            <label class="setting-select">
+              <span><strong>Difficulty</strong><small>Adjust run pacing and danger</small></span>
+              <select id="difficultySelect">
+                <option value="easy">Easy</option>
+                <option value="normal" selected>Normal</option>
+                <option value="hard">Hard</option>
+                <option value="godspeed">Godspeed</option>
+              </select>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <div class="toast" id="toast" aria-live="assertive"></div>
+
+      <nav class="mobile-controls" aria-label="Touch controls">
+        <button type="button" data-action="laneLeft" aria-label="Move left">L</button>
+        <button type="button" data-action="jump" aria-label="Jump">JUMP</button>
+        <button type="button" data-action="slide" aria-label="Slide">SLIDE</button>
+        <button type="button" data-action="laneRight" aria-label="Move right">R</button>
+      </nav>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+node_modules/
+dist/
+test-results/
+playtest-artifacts/
+playwright-report/
+blob-report/
+preview.err
+preview.log
+*.log
+.env*

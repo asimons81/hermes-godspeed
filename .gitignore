@@ -1,0 +1,16 @@
+node_modules/
+dist/
+trailer/
+*.log
+preview.err
+preview.log
+.DS_Store
+playwright-report/
+blob-report/
+test-results/
+playtest-artifacts/
+playtest/*.mp4
+playtest/*.webm
+playtest/*.png
+.env.local
+.env.*.local

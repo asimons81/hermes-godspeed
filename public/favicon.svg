@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Hermes: Godspeed">
+  <rect width="64" height="64" rx="12" fill="#101c4f"/>
+  <path d="M14 42c12-2 21-9 29-23" fill="none" stroke="#65f4ff" stroke-width="5" stroke-linecap="round"/>
+  <path d="M27 39h16l-7 10h-16z" fill="#ffd86d"/>
+  <path d="M38 15c7 1 11 5 13 12-6-2-10-5-13-12z" fill="#fff8d6"/>
+  <path d="M12 35c8-1 14-5 18-12-8 1-14 5-18 12z" fill="#ff6241"/>
+  <circle cx="42" cy="18" r="4" fill="#ffd86d"/>
+</svg>
